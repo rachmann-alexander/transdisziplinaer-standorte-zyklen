@@ -144,6 +144,68 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(45deg, #5a6fd8, #6a4190);
         }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+        }
+        
+        .clickable-image {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .clickable-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -155,13 +217,10 @@
             
             <p>Diese Website dient als Ergänzung zum Antrag, vor allem um komplexe Zusammenhänge grafisch darzustellen. Diese Website ist nicht Teil der Antragsdokumente.</p>
             
-            <h3>Zyklen der transdisziplinären Lehre</h3>
-
-            
             <div class="image-section">
-                <img src="zyklen.jpg" alt="Zyklen der transdisziplinären Lehre" />
+                <img src="zyklen.jpg" alt="Zyklen der transdisziplinären Lehre" class="clickable-image" />
                 <div class="text-content">
-                    <h2>Unser Transport</h2>
+                    <h2>Zyklen der transdisziplinären Lehre</h2>
                     <p>Wir unterscheiden dabei zwischen datenerhebenden und gestaltenden Formate, die immer abwechselnd stattfinden. Favorisiert soll dies in kurzen Zyklen stattfinden (Datenerhebung am Anfang des Semesters, Gestaltung ab Mitte des Semesters); kann aber auch in mittleren (Datenerhebung im Sommer, Gestaltung in Winter) oder langen Zyklen (Erhebung z.B. im Sommersemester 2026, Gestaltung im Sommersemester 2027)  umgesetzt werden. </p>
                     
                 </div>
@@ -183,7 +242,7 @@
 
                     
             <div class="image-section">
-                <img src="truck.png" alt="Weltcampus Transport" />
+                <img src="truck.png" alt="Weltcampus Transport" class="clickable-image" />
                 <div class="text-content">
                     <h2>Unser Transport</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -203,5 +262,56 @@
             <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
         </div>
     </div>
+    
+    <!-- Modal for image enlargement -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+    
+    <script>
+        // Get the modal
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        
+        // Get all images with the clickable-image class
+        const images = document.querySelectorAll('.clickable-image');
+        
+        // Add click event to all clickable images
+        images.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+                // Prevent body scroll when modal is open
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal when clicking the X
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
 </body>
 </html>
