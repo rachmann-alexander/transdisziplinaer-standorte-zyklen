@@ -163,16 +163,24 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            /* make the image take most of the viewport width while keeping aspect ratio */
+            width: 95vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
         }
         
         .modal img {
-            width: 100%;
+            /* expand to 95% of viewport width, but never exceed viewport height */
+            width: 95vw;
+            max-width: 95vw;
+            max-height: 95vh;
             height: auto;
-            border-radius: 10px;
+            object-fit: contain;
         }
         
         .close {
@@ -266,7 +274,7 @@
                <div class="image-section">
                 <img src="Download.png" alt="Weltcampus Transport" class="clickable-image" />
                 <div class="text-content">
-                    <h3>Ingenieurstechnik auf historisches Kulisse</h3>
+                    <h3>Ingenieurstechnik auf historischer Kulisse</h3>
                     <p> In diesem Bild sind technik-lastige Anwendungfälle dargestellt, die vor der Kulisse der Burg Linn in den Dialog gebracht werden. Eine sinnvolle Situation ist bspw. der jährlich stattfindende, überregional wirkende Flachsmarkt (https://www.flachsmarkt.de/).</p>
                     <p></p>
                     
